@@ -1,4 +1,5 @@
 import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
+import * as R from "ramda";
 
 type PokemonResult = {
   name: string;
@@ -15,11 +16,18 @@ type LoaderData = {
 };
 
 function enhanceData(p: PokemonResult) {
-  const pokemonID = p.url.split("/").at(-2);
+  const urlSplitted = R.compose<PokemonResult, string, string[]>(
+    R.split("/"),
+    R.prop("url")
+  )(p);
+
+  // ID is in 6th position
+  const id = urlSplitted[6];
+
   return {
     ...p,
-    id: pokemonID,
-    imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`,
+    id,
+    imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
   };
 }
 
@@ -43,18 +51,18 @@ export let meta: MetaFunction = () => {
   };
 };
 
+const renderPokemon = R.map<Pokemon, JSX.Element>((p) => (
+  <li key={p.name}>
+    {p.name} <img src={p.imageUrl} alt={`Image of a ${p.name}`} />
+  </li>
+));
+
 export default function Index() {
-  const { data } = useLoaderData<LoaderData>();
+  const loaderData = useLoaderData<LoaderData>();
 
   return (
     <div>
-      <ul>
-        {data.map((p) => (
-          <li key={p.name}>
-            {p.name} <img src={p.imageUrl} alt={`Image of a ${p.name}`} />
-          </li>
-        ))}
-      </ul>
+      <ul>{renderPokemon(R.prop("data", loaderData))}</ul>
     </div>
   );
 }
