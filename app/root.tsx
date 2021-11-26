@@ -11,8 +11,8 @@ import {
 } from 'remix';
 import type { LinksFunction } from 'remix';
 
-import globalStylesUrl from '~/styles/global.css';
 import darkStylesUrl from '~/styles/dark.css';
+import globalStylesUrl from '~/styles/global.css';
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -136,6 +136,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 /**
  * Provides an alert for screen reader users when the route changes.
  */
+// eslint-disable-next-line react/display-name
 const RouteChangeAnnouncement = React.memo(() => {
   const [hydrated, setHydrated] = React.useState(false);
   const [innerHtml, setInnerHtml] = React.useState('');

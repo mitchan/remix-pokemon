@@ -1,5 +1,6 @@
-import { MetaFunction, LoaderFunction, useLoaderData } from 'remix';
 import * as R from 'ramda';
+import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
+import React from 'react';
 
 type PokemonResult = {
   name: string;
@@ -35,7 +36,7 @@ function enhanceData(p: PokemonResult) {
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
-export let loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async () => {
   const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
   const { results } = await resp.json();
 
@@ -44,12 +45,10 @@ export let loader: LoaderFunction = async () => {
   };
 };
 
-export let meta: MetaFunction = () => {
-  return {
-    title: 'Pokemon list',
-    description: 'A list of pokemon',
-  };
-};
+export const meta: MetaFunction = () => ({
+  title: 'Pokemon list',
+  description: 'A list of pokemon',
+});
 
 const renderPokemon = R.map<Pokemon, JSX.Element>((p) => (
   <li key={p.name}>

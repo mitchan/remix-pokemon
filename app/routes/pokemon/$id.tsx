@@ -1,4 +1,5 @@
-import { MetaFunction, LoaderFunction, useLoaderData } from 'remix';
+import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
+import React from 'react';
 
 type Pokemon = {
   name: string;
