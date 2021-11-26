@@ -1,6 +1,6 @@
 import * as R from 'ramda';
-import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
 import React from 'react';
+import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
 
 type PokemonResult = {
   name: string;

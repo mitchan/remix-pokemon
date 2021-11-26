@@ -1,5 +1,5 @@
-import { Outlet } from 'remix';
 import React from 'react';
+import { Outlet } from 'remix';
 
 export default function PokemonIndex() {
   return (
