@@ -1,5 +1,5 @@
-import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
-import * as R from "ramda";
+import { MetaFunction, LoaderFunction, useLoaderData } from 'remix';
+import * as R from 'ramda';
 
 type PokemonResult = {
   name: string;
@@ -17,8 +17,8 @@ type LoaderData = {
 
 function enhanceData(p: PokemonResult) {
   const urlSplitted = R.compose<PokemonResult, string, string[]>(
-    R.split("/"),
-    R.prop("url")
+    R.split('/'),
+    R.prop('url'),
   )(p);
 
   // ID is in 6th position
@@ -36,7 +36,7 @@ function enhanceData(p: PokemonResult) {
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
 export let loader: LoaderFunction = async () => {
-  const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
+  const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
   const { results } = await resp.json();
 
   return {
@@ -46,8 +46,8 @@ export let loader: LoaderFunction = async () => {
 
 export let meta: MetaFunction = () => {
   return {
-    title: "Pokemon list",
-    description: "A list of pokemon",
+    title: 'Pokemon list',
+    description: 'A list of pokemon',
   };
 };
 
@@ -62,7 +62,7 @@ export default function Index() {
 
   return (
     <div>
-      <ul>{renderPokemon(R.prop("data", loaderData))}</ul>
+      <ul>{renderPokemon(R.prop('data', loaderData))}</ul>
     </div>
   );
 }

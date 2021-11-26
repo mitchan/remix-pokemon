@@ -1,4 +1,4 @@
-import { MetaFunction, LoaderFunction, useLoaderData } from "remix";
+import { MetaFunction, LoaderFunction, useLoaderData } from 'remix';
 
 type Pokemon = {
   name: string;
@@ -17,8 +17,8 @@ export let loader: LoaderFunction = async ({ params }) => {
 
 export let meta: MetaFunction = () => {
   return {
-    title: "Pokemon list",
-    description: "A list of pokemon",
+    title: 'Pokemon list',
+    description: 'A list of pokemon',
   };
 };
 
